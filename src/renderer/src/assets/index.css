@@ -6,6 +6,10 @@
   padding: 0px;
 }
 
+body {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 0.55rem;
 }

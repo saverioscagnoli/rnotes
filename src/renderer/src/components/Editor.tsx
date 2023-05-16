@@ -1,5 +1,4 @@
 import { useEditor } from "@renderer/hooks";
-import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
@@ -11,21 +10,13 @@ import "katex/dist/katex.min.css";
 
 function Editor() {
   const { val, onEdit, onKeyDown, txRef } = useEditor();
-  const scrollRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    setTimeout(() => {
-      scrollRef.current?.scrollIntoView();
-    }, 10);
-  }, [val]);
 
   return (
     <div
       style={{
-        height: "98%",
+        height: "100%",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
         gap: "0.5rem"
       }}
     >
@@ -37,7 +28,7 @@ function Editor() {
         onKeyDown={onKeyDown}
         style={{
           width: "100%",
-          height: "90%",
+          height: "92%",
           marginLeft: "0.5rem",
           border: "none",
           outline: "none",
@@ -52,7 +43,7 @@ function Editor() {
       <div
         style={{
           width: "100%",
-          height: "90%",
+          height: "92%",
           fontFamily: "'Open Sans', sans-serif",
           fontSize: "1rem",
           fontWeight: "500",
@@ -65,10 +56,8 @@ function Editor() {
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}
-        >
-          {val}
-        </ReactMarkdown>
-        <span ref={scrollRef}></span>
+          children={val}
+        />
       </div>
     </div>
   );
