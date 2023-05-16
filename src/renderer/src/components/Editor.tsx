@@ -9,10 +9,8 @@ import remarkBreaks from "remark-breaks";
 import remarkEmoji from "remark-emoji";
 import "katex/dist/katex.min.css";
 
-const def = "# Hello world! \nThis is **markdown!**";
-
 function Editor() {
-  const { val, onEdit } = useEditor(def);
+  const { val, onEdit, onKeyDown, txRef } = useEditor();
   const scrollRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -24,7 +22,7 @@ function Editor() {
   return (
     <div
       style={{
-        height: "100%",
+        height: "98%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -33,8 +31,10 @@ function Editor() {
     >
       <textarea
         name="editor"
+        ref={txRef}
+        value={val}
         onChange={onEdit}
-        placeholder={def}
+        onKeyDown={onKeyDown}
         style={{
           width: "100%",
           height: "90%",
