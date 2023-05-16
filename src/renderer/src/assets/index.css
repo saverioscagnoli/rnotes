@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+::-webkit-scrollbar {
+  width: 0.55rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.2rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
