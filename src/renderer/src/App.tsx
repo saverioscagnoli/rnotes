@@ -1,10 +1,10 @@
-import { Textarea } from "./components";
+import { Editor } from "./components";
 
 function App(): JSX.Element {
   return (
-    <>
-      <Textarea />
-    </>
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <Editor />
+    </div>
   );
 }
 
