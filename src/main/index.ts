@@ -1,6 +1,9 @@
-import { app, shell, BrowserWindow } from "electron";
+import { app, shell, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+import { mdToPdf } from "md-to-pdf";
+import { writeFileSync } from "fs";
+import { dialog } from "electron";
 import icon from "../../resources/icon.png?asset";
 
 function createWindow(): void {
@@ -17,11 +20,25 @@ function createWindow(): void {
     }
   });
 
+  ipcMain.on("toPDF", async (_, md) => {
+    let sReq = await dialog.showSaveDialog(mainWindow, {
+      title: "Save PDF",
+      filters: [{ name: "PDF", extensions: ["pdf"] }]
+    });
+
+    if (sReq.canceled) return;
+
+    let pdf = await mdToPdf({ content: md }).catch(console.error);
+    if (pdf) {
+      writeFileSync(sReq.filePath!, pdf.content);
+    }
+  });
+
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  mainWindow.webContents.setWindowOpenHandler(details => {
     shell.openExternal(details.url);
     return { action: "deny" };
   });

@@ -29,6 +29,7 @@
     "chakra-ui-markdown-renderer": "^4.1.0",
     "electron-updater": "^5.3.0",
     "framer-motion": "^10.12.12",
+    "md-to-pdf": "^5.2.4",
     "react-icons": "^4.8.0",
     "react-markdown": "^8.0.7",
     "rehype-katex": "^6.0.3",
