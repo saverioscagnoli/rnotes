@@ -12,7 +12,7 @@ import "katex/dist/katex.min.css";
 const def = "# Hello world! \nThis is **markdown!**";
 
 function Editor() {
-  const { val, onEdit } = useEditor(def);
+  const { val, onEdit } = useEditor();
   const scrollRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ function Editor() {
     >
       <textarea
         name="editor"
+        value={val}
         onChange={onEdit}
-        placeholder={def}
         style={{
           width: "100%",
           height: "90%",
