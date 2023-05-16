@@ -1,1 +1,1 @@
-export { default as useTextarea } from "./useTextarea";
+export { default as useEditor } from "./useEditor";
