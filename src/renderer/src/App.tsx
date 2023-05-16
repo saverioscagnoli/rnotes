@@ -1,11 +1,12 @@
+import { Box } from "@chakra-ui/react";
 import { Editor, Navbar } from "./components";
 
 function App(): JSX.Element {
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <Box w="100vw" h="100vh">
       <Navbar />
       <Editor />
-    </div>
+    </Box>
   );
 }
 

@@ -1,4 +1,6 @@
 import { useEditor } from "@renderer/hooks";
+import { Box, Flex, Textarea } from "@chakra-ui/react";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
@@ -12,54 +14,40 @@ function Editor() {
   const { val, onEdit, onKeyDown, txRef } = useEditor();
 
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        gap: "0.5rem"
-      }}
-    >
-      <textarea
-        name="editor"
+    <Flex h="100%" justifyContent="center" gap="0.5rem">
+      <Textarea
         ref={txRef}
         value={val}
         onChange={onEdit}
         onKeyDown={onKeyDown}
-        style={{
-          width: "100%",
-          height: "92%",
-          marginLeft: "0.5rem",
-          border: "none",
-          outline: "none",
-          boxShadow: "none",
-          overflow: "auto",
-          fontFamily: "'Open Sans', sans-serif",
-          fontSize: "1rem",
-          fontWeight: "500",
-          resize: "none"
-        }}
+        w="100%"
+        h="89%"
+        ml="0.5rem"
+        border="none"
+        outline="none"
+        boxShadow="none"
+        overflow="auto"
+        fontWeight="semibold"
+        resize="none"
+        _focusVisible={{ outline: "none" }}
       />
-      <div
-        style={{
-          width: "100%",
-          height: "92%",
-          fontFamily: "'Open Sans', sans-serif",
-          fontSize: "1rem",
-          fontWeight: "500",
-          marginRight: "0.5rem",
-          wordBreak: "break-all",
-          overflow: "auto"
-        }}
+      <Box
+        w="100%"
+        h="89%"
+        fontWeight="semibold"
+        mr="0.5rem"
+        wordBreak="break-all"
+        overflow="auto"
       >
         <ReactMarkdown
+          components={ChakraUIRenderer()}
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}
           children={val}
         />
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 }
 
