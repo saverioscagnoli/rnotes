@@ -1,4 +1,4 @@
-import { useEditor } from "@renderer/hooks";
+import { ChangeEvent, RefObject, KeyboardEvent } from "react";
 import { Box, Flex, Textarea } from "@chakra-ui/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -10,9 +10,14 @@ import remarkBreaks from "remark-breaks";
 import remarkEmoji from "remark-emoji";
 import "katex/dist/katex.min.css";
 
-function Editor() {
-  const { val, onEdit, onKeyDown, txRef } = useEditor();
+interface EditorProps {
+  val: string;
+  onEdit: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
+  txRef: RefObject<HTMLTextAreaElement>;
+}
 
+function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
   return (
     <Flex h="100%" justifyContent="center" gap="0.5rem">
       <Textarea
