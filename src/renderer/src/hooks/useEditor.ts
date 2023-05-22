@@ -8,7 +8,9 @@ const close = {
   "'": "'",
   "*": "*",
   $: "$",
-  "`": "`"
+  "`": "`",
+  b: "****",
+  i: "**"
 };
 
 const useEditor = () => {
@@ -44,6 +46,67 @@ const useEditor = () => {
       }
       setVal(updVal);
       setTimeout(() => tx.setSelectionRange(updPos, updPos));
+    }
+
+    if (e.ctrlKey) {
+      switch (e.key) {
+        case "b": {
+          e.preventDefault();
+          const tx = txRef.current;
+          if (!tx) return;
+          const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
+          const slTxt = val.substring(stP, endP);
+          let toClose = close.b;
+
+          let updVal: string;
+          let updPos: number;
+
+          if (slTxt) {
+            toClose = "**";
+            updVal =
+              val.substring(0, stP) +
+              toClose +
+              slTxt +
+              toClose +
+              val.substring(endP);
+            updPos = stP + slTxt.length + 2;
+          } else {
+            updVal = val.substring(0) + toClose + val.substring(endP);
+            updPos = stP + 1;
+          }
+          setVal(updVal);
+          setTimeout(() => tx.setSelectionRange(updPos + 1, updPos + 1));
+          break;
+        }
+        case "i": {
+          e.preventDefault();
+          const tx = txRef.current;
+          if (!tx) return;
+          const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
+          const slTxt = val.substring(stP, endP);
+          let toClose = close.i;
+
+          let updVal: string;
+          let updPos: number;
+
+          if (slTxt) {
+            toClose = "*";
+            updVal =
+              val.substring(0, stP) +
+              toClose +
+              slTxt +
+              toClose +
+              val.substring(endP);
+            updPos = stP + slTxt.length + 2;
+          } else {
+            updVal = val.substring(0) + toClose + val.substring(endP);
+            updPos = stP + 1;
+          }
+          setVal(updVal);
+          setTimeout(() => tx.setSelectionRange(updPos, updPos));
+          break;
+        }
+      }
     }
   };
 
