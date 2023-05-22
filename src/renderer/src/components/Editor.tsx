@@ -32,7 +32,6 @@ function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
         outline="none"
         boxShadow="none"
         overflow="auto"
-        fontWeight="semibold"
         resize="none"
         _focusVisible={{ outline: "none" }}
       />

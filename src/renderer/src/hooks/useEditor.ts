@@ -8,9 +8,7 @@ const close = {
   "'": "'",
   "*": "*",
   $: "$",
-  "`": "`",
-  b: "****",
-  i: "**"
+  "`": "`"
 };
 
 const useEditor = () => {
@@ -39,7 +37,7 @@ const useEditor = () => {
       if (slTxt) {
         updVal =
           val.substring(0, stP) + e.key + slTxt + toClose + val.substring(endP);
-        updPos = stP + slTxt.length + 2;
+        updPos = stP + slTxt.length + 3;
       } else {
         updVal = val.substring(0, stP) + e.key + toClose + val.substring(endP);
         updPos = stP + 1;
@@ -47,7 +45,6 @@ const useEditor = () => {
       setVal(updVal);
       setTimeout(() => tx.setSelectionRange(updPos, updPos));
     }
-
     if (e.ctrlKey) {
       switch (e.key) {
         case "b": {
@@ -56,7 +53,7 @@ const useEditor = () => {
           if (!tx) return;
           const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
           const slTxt = val.substring(stP, endP);
-          let toClose = close.b;
+          let toClose = "****";
 
           let updVal: string;
           let updPos: number;
@@ -69,7 +66,7 @@ const useEditor = () => {
               slTxt +
               toClose +
               val.substring(endP);
-            updPos = stP + slTxt.length + 2;
+            updPos = stP + slTxt.length + 4;
           } else {
             updVal = val.substring(0) + toClose + val.substring(endP);
             updPos = stP + 1;
@@ -84,7 +81,7 @@ const useEditor = () => {
           if (!tx) return;
           const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
           const slTxt = val.substring(stP, endP);
-          let toClose = close.i;
+          let toClose = "**";
 
           let updVal: string;
           let updPos: number;
@@ -97,7 +94,7 @@ const useEditor = () => {
               slTxt +
               toClose +
               val.substring(endP);
-            updPos = stP + slTxt.length + 2;
+            updPos = stP + slTxt.length + 3;
           } else {
             updVal = val.substring(0) + toClose + val.substring(endP);
             updPos = stP + 1;
