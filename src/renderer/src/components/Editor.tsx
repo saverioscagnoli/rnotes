@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
 import remarkEmoji from "remark-emoji";
 import "katex/dist/katex.min.css";
+import { editorTheme } from "@renderer/assets";
 
 interface EditorProps {
   val: string;
@@ -44,7 +45,7 @@ function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
         overflow="auto"
       >
         <ReactMarkdown
-          components={ChakraUIRenderer()}
+          components={ChakraUIRenderer(editorTheme)}
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}
