@@ -59,7 +59,6 @@ const useEditor = () => {
     if (k in toClose) {
       e.preventDefault();
       editTx(k);
-      console.log("key", k);
     }
     if (k === "Tab") {
       e.preventDefault();

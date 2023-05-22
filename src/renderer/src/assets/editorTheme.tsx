@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   Heading,
   ListItem,
   OrderedList,
@@ -61,7 +62,7 @@ const editorTheme = {
   },
   input: (props: ThemeProps) => {
     const { children } = props;
-    return <Text fontWeight="bold">{children}</Text>;
+    return <Checkbox mt={1}>{children}</Checkbox>;
   },
   p: (props: ThemeProps) => {
     const { children } = props;
