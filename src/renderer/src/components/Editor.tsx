@@ -37,6 +37,7 @@ function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
         _focusVisible={{ outline: "none" }}
       />
       <Box
+        id="md"
         w="100%"
         h="89%"
         fontWeight="semibold"

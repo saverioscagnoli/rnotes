@@ -16,6 +16,8 @@ function createWindow(): void {
     minWidth: 800,
     minHeight: 600,
     show: false,
+    frame: false,
+    fullscreenable: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
@@ -23,6 +25,8 @@ function createWindow(): void {
       sandbox: false
     }
   });
+
+  mainWindow.setTitle("rnotes");
 
   ipcMain.on("toPDF", async (_, md) => {
     let sReq = await dialog.showSaveDialog(mainWindow, {
@@ -76,7 +80,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId("com.electron");
+  electronApp.setAppUserModelId("r.notes");
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
