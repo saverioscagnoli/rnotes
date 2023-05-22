@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, ChangeEvent } from "react";
+import { useState, useRef, useEffect, ChangeEvent, KeyboardEvent } from "react";
 
 const toClose = {
   "(": ")",
@@ -54,7 +54,7 @@ const useEditor = () => {
     setTimeout(() => tx.setSelectionRange(updPos, updPos));
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     let k = e.key;
     if (k in toClose) {
       e.preventDefault();
@@ -63,6 +63,19 @@ const useEditor = () => {
     if (k === "Tab") {
       e.preventDefault();
       editTx("  ");
+    }
+    if (k === "Enter") {
+      let spl = val.split("\n");
+      let last = spl[spl.length - 1];
+      if (last.startsWith("- ")) {
+        e.preventDefault();
+        setVal(val + "\n- ");
+      }
+      let m = last.match(/^[1-9]\.\s/);
+      if (m) {
+        e.preventDefault();
+        setVal(val + "\n" + (parseInt(m[0]) + 1) + ". ");
+      }
     }
 
     if (e.ctrlKey) {
