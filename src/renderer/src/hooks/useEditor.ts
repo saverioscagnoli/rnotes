@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ChangeEvent } from "react";
 
-const close = {
+const toClose = {
   "(": ")",
   "[": "]",
   "{": "}",
@@ -15,93 +15,77 @@ const useEditor = () => {
   const [val, setVal] = useState<string>("");
   const txRef = useRef<HTMLTextAreaElement>(null);
 
-  const onEdit = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onEdit = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let v = e.target.value;
     setVal(v);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key in close) {
-      e.preventDefault();
+  const editTx = (k: string) => {
+    const tx = txRef.current!;
+    let [stP, endP] = [tx.selectionStart, tx.selectionEnd];
 
-      const tx = txRef.current;
-      if (!tx) return;
-      const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
+    let slTxt = val.substring(stP, endP);
 
-      const slTxt = val.substring(stP, endP);
-      const toClose = close[e.key];
+    let updVal: string;
+    let updPos: number;
 
-      let updVal: string;
-      let updPos: number;
+    let [stStr, endStr] = [val.substring(0, stP), val.substring(endP)];
+    let isClosing = k in toClose;
 
-      if (slTxt) {
-        updVal =
-          val.substring(0, stP) + e.key + slTxt + toClose + val.substring(endP);
-        updPos = stP + slTxt.length + 3;
+    if (slTxt) {
+      if (isClosing) {
+        updVal = stStr + k + slTxt + toClose[k] + endStr;
+        updPos = stP + slTxt.length + k.length + 1;
       } else {
-        updVal = val.substring(0, stP) + e.key + toClose + val.substring(endP);
-        updPos = stP + 1;
+        updVal = stStr + k + slTxt + k + endStr;
+        updPos = stP + slTxt.length + 100;
       }
-      setVal(updVal);
-      setTimeout(() => tx.setSelectionRange(updPos, updPos));
+    } else {
+      if (isClosing) {
+        let closing = toClose[k];
+        updVal = stStr + k + closing + endStr;
+        updPos = stP + k.length;
+      } else {
+        updVal = stStr + k + k + endStr;
+        updPos = stP + k.length;
+      }
     }
+    setVal(updVal);
+    setTimeout(() => tx.setSelectionRange(updPos, updPos));
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    let k = e.key;
+    if (k in toClose) {
+      e.preventDefault();
+      editTx(k);
+      console.log("key", k);
+    }
+    if (k === "Tab") {
+      e.preventDefault();
+      editTx("  ");
+    }
+
     if (e.ctrlKey) {
-      switch (e.key) {
+      switch (k) {
         case "b": {
           e.preventDefault();
-          const tx = txRef.current;
-          if (!tx) return;
-          const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
-          const slTxt = val.substring(stP, endP);
-          let toClose = "****";
-
-          let updVal: string;
-          let updPos: number;
-
-          if (slTxt) {
-            toClose = "**";
-            updVal =
-              val.substring(0, stP) +
-              toClose +
-              slTxt +
-              toClose +
-              val.substring(endP);
-            updPos = stP + slTxt.length + 4;
-          } else {
-            updVal = val.substring(0) + toClose + val.substring(endP);
-            updPos = stP + 1;
-          }
-          setVal(updVal);
-          setTimeout(() => tx.setSelectionRange(updPos + 1, updPos + 1));
+          editTx("**");
           break;
         }
         case "i": {
           e.preventDefault();
-          const tx = txRef.current;
-          if (!tx) return;
-          const [stP, endP] = [tx.selectionStart, tx.selectionEnd];
-          const slTxt = val.substring(stP, endP);
-          let toClose = "**";
-
-          let updVal: string;
-          let updPos: number;
-
-          if (slTxt) {
-            toClose = "*";
-            updVal =
-              val.substring(0, stP) +
-              toClose +
-              slTxt +
-              toClose +
-              val.substring(endP);
-            updPos = stP + slTxt.length + 3;
-          } else {
-            updVal = val.substring(0) + toClose + val.substring(endP);
-            updPos = stP + 1;
-          }
-          setVal(updVal);
-          setTimeout(() => tx.setSelectionRange(updPos, updPos));
+          editTx("*");
           break;
+        }
+        case "n": {
+          e.preventDefault();
+          editTx("$");
+          break;
+        }
+        case "m": {
+          e.preventDefault();
+          editTx("\n$$\n");
         }
       }
     }
@@ -114,7 +98,7 @@ const useEditor = () => {
     }
   }, []);
 
-  return { val, onEdit, onKeyDown, txRef };
+  return { val, onEdit, onKeyDown, editTx, txRef };
 };
 
 export default useEditor;

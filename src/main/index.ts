@@ -49,6 +49,10 @@ function createWindow(): void {
     writeFileSync(sReq.filePath!, md);
   });
 
+  ipcMain.on("getOs", e => {
+    e.returnValue = process.platform;
+  });
+
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });
