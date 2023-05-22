@@ -34,6 +34,17 @@ function createWindow(): void {
     }
   });
 
+  ipcMain.on("toMD", async (_, md) => {
+    let sReq = await dialog.showSaveDialog(mainWindow, {
+      title: "Save MD",
+      filters: [{ name: "MD", extensions: ["md"] }]
+    });
+
+    if (sReq.canceled) return;
+
+    writeFileSync(sReq.filePath!, md);
+  });
+
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
   });

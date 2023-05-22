@@ -1,5 +1,17 @@
-import { Button, Flex, IconButton, useColorMode } from "@chakra-ui/react";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  Flex,
+  Icon,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useColorMode
+} from "@chakra-ui/react";
+import { SunIcon, MoonIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { BsFilePdfFill } from "react-icons/bs";
+import { FaMarkdown } from "react-icons/fa";
 
 interface NavbarProps {
   val: string;
@@ -7,12 +19,25 @@ interface NavbarProps {
 
 function Navbar({ val }: NavbarProps) {
   const { colorMode, toggleColorMode } = useColorMode();
-  const onExport = () => window.api.toPDF(val);
+  const onExportPDF = () => window.api.toPDF(val);
+  const onExportMD = () => window.api.toMD(val);
 
   return (
     <Flex w="100%" h="10%" alignItems="center">
       <Flex w="100%" justifyContent="flex-start" ml="1rem">
-        <Button onClick={onExport}>export PDF</Button>
+        <Menu>
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            export
+          </MenuButton>
+          <MenuList>
+            <MenuItem icon={<Icon as={BsFilePdfFill} />} onClick={onExportPDF}>
+              as PDF
+            </MenuItem>
+            <MenuItem icon={<Icon as={FaMarkdown} />} onClick={onExportMD}>
+              as Markdown
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
       <Flex w="100%" justifyContent="flex-end" mr="1rem">
         <IconButton
