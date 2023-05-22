@@ -5,7 +5,8 @@ import { Api } from "./ApiType";
 // Custom APIs for renderer
 const api: Api = {
   toPDF: md => ipcRenderer.send("toPDF", md),
-  toMD: md => ipcRenderer.send("toMD", md)
+  toMD: md => ipcRenderer.send("toMD", md),
+  getOs: () => ipcRenderer.sendSync("getOs")
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to
