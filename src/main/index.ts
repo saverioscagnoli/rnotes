@@ -11,6 +11,10 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    maxWidth: 1074,
+    maxHeight: 800,
+    minWidth: 800,
+    minHeight: 600,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? { icon } : {}),
@@ -23,7 +27,7 @@ function createWindow(): void {
   ipcMain.on("toPDF", async (_, md) => {
     let sReq = await dialog.showSaveDialog(mainWindow, {
       title: "Save PDF",
-      filters: [{ name: "PDF", extensions: ["pdf"] }]
+      filters: [{ name: "pdf", extensions: ["pdf"] }]
     });
 
     if (sReq.canceled) return;
@@ -37,7 +41,7 @@ function createWindow(): void {
   ipcMain.on("toMD", async (_, md) => {
     let sReq = await dialog.showSaveDialog(mainWindow, {
       title: "Save MD",
-      filters: [{ name: "MD", extensions: ["md"] }]
+      filters: [{ name: "markdown", extensions: ["md"] }]
     });
 
     if (sReq.canceled) return;
