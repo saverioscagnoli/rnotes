@@ -17,19 +17,11 @@ function ExportMenu({ val }: ExportMenuProps) {
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
         export
       </MenuButton>
-      <MenuList bg="unset">
-        <MenuItem
-          bg="unset"
-          icon={<Icon as={BsFilePdfFill} />}
-          onClick={onExportPDF}
-        >
+      <MenuList>
+        <MenuItem icon={<Icon as={BsFilePdfFill} />} onClick={onExportPDF}>
           as PDF
         </MenuItem>
-        <MenuItem
-          bg="unset"
-          icon={<Icon as={FaMarkdown} />}
-          onClick={onExportMD}
-        >
+        <MenuItem icon={<Icon as={FaMarkdown} />} onClick={onExportMD}>
           as Markdown
         </MenuItem>
       </MenuList>

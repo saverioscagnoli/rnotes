@@ -15,19 +15,15 @@ function ShortcutsMenu() {
       <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
         shortcuts
       </MenuButton>
-      <MenuList bg="unset">
-        <MenuItem bg="unset" command={`${k}+b`}>
+      <MenuList>
+        <MenuItem command={`${k}+b`}>
           <strong>bold</strong>
         </MenuItem>
-        <MenuItem bg="unset" command={`${k}+i`}>
+        <MenuItem command={`${k}+i`}>
           <i>italic</i>
         </MenuItem>
-        <MenuItem bg="unset" command={`${k}+n`}>
-          inline math
-        </MenuItem>
-        <MenuItem bg="unset" command={`${k}+m`}>
-          block math
-        </MenuItem>
+        <MenuItem command={`${k}+n`}>inline math</MenuItem>
+        <MenuItem command={`${k}+m`}>block math</MenuItem>
       </MenuList>
     </Menu>
   );
