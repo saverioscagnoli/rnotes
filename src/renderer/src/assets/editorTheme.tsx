@@ -70,7 +70,7 @@ const editorTheme = {
   li: (props: ThemeProps) => {
     const { children } = props;
     return (
-      <ListItem mt={1} mb={1}>
+      <ListItem mt={1} ml={1} mb={1}>
         {children}
       </ListItem>
     );
