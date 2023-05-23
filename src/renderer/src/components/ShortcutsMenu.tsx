@@ -12,7 +12,11 @@ function ShortcutsMenu() {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+      <MenuButton
+        className="no-drag"
+        as={Button}
+        rightIcon={<ChevronDownIcon />}
+      >
         shortcuts
       </MenuButton>
       <MenuList>

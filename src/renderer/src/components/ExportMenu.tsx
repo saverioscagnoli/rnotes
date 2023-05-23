@@ -14,7 +14,11 @@ function ExportMenu({ val }: ExportMenuProps) {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+      <MenuButton
+        className="no-drag"
+        as={Button}
+        rightIcon={<ChevronDownIcon />}
+      >
         export
       </MenuButton>
       <MenuList>
