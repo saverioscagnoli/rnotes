@@ -1,34 +1,26 @@
-# rnotes
+# rnotes 🦝
 
-An Electron application with React and TypeScript
+This is a very essential note-taking app based on markdown.
+It supports:
 
-## Recommended IDE Setup
+- Katex rendering with:
+    - [katex](https://www.npmjs.com/package/katex)
+    - [rehype-katex](https://www.npmjs.com/package/rehype-katex)
+    - [remark-math](https://www.npmjs.com/package/remark-math)
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- 🌭 emoji rendering with [remark-emoji](https://www.npmjs.com/package/remark-emoji)
+- breaks with [remark-breaks](https://www.npmjs.com/package/remark-breaks)
 
-## Project Setup
+### Example
 
-### Install
+**Gauss once said:**
 
-```bash
-$ npm install
-```
+$$
+\sum_{k=1}^n=\frac{n(n-1)}{2}
+$$
 
-### Development
+He was just $10$ (I think) years old!
 
-```bash
-$ npm run dev
-```
-
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
-```
+| Version | Date | Shortcut |
+| :---:        |     :---:     |        :---:  |
+| v0.0.1   | 22/05/2023     | [link](https://github.com/saverioscagnoli/rnotes/releases/tag/v0.0.1)    |
