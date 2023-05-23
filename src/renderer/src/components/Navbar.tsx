@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, useColorMode } from "@chakra-ui/react";
+import { Flex, IconButton, useColorMode } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import ExportMenu from "./ExportMenu";
 import ShortcutsMenu from "./ShortcutsMenu";
@@ -12,12 +12,7 @@ function Navbar({ val }: NavbarProps) {
 
   return (
     <Flex id="navbar" w="100%" h="10%" alignItems="center">
-      <Flex
-        w="100%"
-        justifyContent="flex-start"
-        ml="1rem"
-        gap="0.5rem"
-      >
+      <Flex w="100%" justifyContent="flex-start" ml="1rem" gap="0.5rem">
         <ExportMenu val={val} />
         <ShortcutsMenu />
       </Flex>
