@@ -1,4 +1,10 @@
-import { ChangeEvent, RefObject, KeyboardEvent } from "react";
+import {
+  ChangeEvent,
+  RefObject,
+  KeyboardEvent,
+  useState,
+  useCallback
+} from "react";
 import { Box, Flex, Textarea } from "@chakra-ui/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -10,32 +16,49 @@ import remarkBreaks from "remark-breaks";
 import remarkEmoji from "remark-emoji";
 import "katex/dist/katex.min.css";
 import { editorTheme } from "@renderer/assets";
+import CodeMirror from "@uiw/react-codemirror";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { languages } from "@codemirror/language-data";
+import createTheme from "@uiw/codemirror-themes";
 
 interface EditorProps {
   val: string;
-  onEdit: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  onEdit: (e: any) => void;
   onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
   txRef: RefObject<HTMLTextAreaElement>;
 }
 
+const theme = createTheme({
+  theme: "light",
+  settings: {
+    background: "transparent",
+    foreground: "#75baff"
+  },
+
+  styles: []
+});
+
 function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
+  const [value, setValue] = useState("");
+  const onChange = useCallback((value, viewUpdate) => {
+    setValue(value);
+  }, []);
   return (
     <Flex h="100%" justifyContent="center" gap="0.5rem">
-      <Textarea
-        ref={txRef}
-        value={val}
-        onChange={onEdit}
-        onKeyDown={onKeyDown}
-        w="100%"
-        h="89%"
-        ml="0.5rem"
-        border="none"
-        outline="none"
-        boxShadow="none"
-        overflow="auto"
-        resize="none"
-        _focusVisible={{ outline: "none" }}
+      <CodeMirror
+        value={value}
+        extensions={[
+          markdown({ base: markdownLanguage, codeLanguages: languages })
+        ]}
+        theme={theme}
+        onChange={onChange}
+        style={{
+          width: "100%",
+          height: "89%",
+          overflow: "auto"
+        }}
       />
+      ;
       <Box
         id="md"
         w="100%"
@@ -50,7 +73,7 @@ function Editor({ val, onEdit, onKeyDown, txRef }: EditorProps) {
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}
-          children={val}
+          children={value}
         />
       </Box>
     </Flex>
