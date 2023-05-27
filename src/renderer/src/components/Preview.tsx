@@ -14,8 +14,14 @@ import { EditorContext } from "@renderer/contexts";
 function Preview() {
   const { val } = useContext(EditorContext)!;
   return (
-    <Flex w="70%" h="89%" justifyContent="center">
-      <Box id="md" fontWeight="semibold" wordBreak="break-all" overflow="auto">
+    <Flex h="89%" justifyContent="center">
+      <Box
+        id="md"
+        w="70%"
+        fontWeight="semibold"
+        wordBreak="break-all"
+        overflow="auto"
+      >
         <ReactMarkdown
           components={ChakraUIRenderer(editorTheme)}
           skipHtml
