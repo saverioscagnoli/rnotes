@@ -23,7 +23,7 @@ function ShortcutsMenu() {
         <MenuItem command={`${k}+b`}>
           <strong>bold</strong>
         </MenuItem>
-        <MenuItem command={`${k}+i`}>
+        <MenuItem command={`${k}+j`}>
           <i>italic</i>
         </MenuItem>
         <MenuItem command={`${k}+n`}>inline math</MenuItem>
