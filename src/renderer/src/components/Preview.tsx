@@ -14,9 +14,10 @@ import { EditorContext } from "@renderer/contexts";
 function Preview() {
   const { val } = useContext(EditorContext)!;
   return (
-    <Flex h="89%" justifyContent="center">
+    <Flex justifyContent="center">
       <Box
         id="md"
+        h="89%"
         w="70%"
         fontWeight="semibold"
         wordBreak="break-all"
@@ -27,7 +28,7 @@ function Preview() {
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}
-          children={val}
+          children={val.length ? val : "Nothing to preview."}
         />
       </Box>
     </Flex>

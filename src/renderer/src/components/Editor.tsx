@@ -1,67 +1,66 @@
-import { useContext, useCallback, useRef, useEffect } from "react";
-import { useColorMode } from "@chakra-ui/react";
+import { useContext, useCallback, useRef } from "react";
+import { Flex, useColorMode } from "@chakra-ui/react";
 import { dark, light } from "@renderer/assets";
 import CodeMirror, { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { EditorContext } from "@renderer/contexts";
+import { EditorView } from "@codemirror/view";
 import Preview from "./Preview";
-import "katex/dist/katex.min.css";
+import MathPopover from "./MathPopover";
+import { useMathPopover } from "@renderer/hooks";
+
+const extensions = [
+  markdown({ base: markdownLanguage, codeLanguages: languages }),
+  EditorView.lineWrapping
+];
 
 function Editor() {
   const { colorMode } = useColorMode();
-  const { val, setVal, prev } = useContext(EditorContext)!;
-  const onEdit = useCallback((v: string) => setVal(v), []);
-
   const ref = useRef<ReactCodeMirrorRef>(null);
+  const { val, setVal, prev, setPrev } = useContext(EditorContext)!;
+  const math = useMathPopover(ref, val);
+  const onEdit = useCallback((v: string) => setVal(v), []);
+  const togglePreview = () => setPrev(p => !p);
 
-  useEffect(() => {
-    let cm = ref.current;
-    if (cm) {
-      /* cm.view?.dispatch({
-            changes: { from: 0, to: cm.state?.doc.length, insert: "a" }
-          }); */
-      let caret = cm.view?.state?.selection.main.head;
-
-      var precedingText = val.substring(0, caret);
-      var followingText = val.substring(caret!);
-
-      var openingParenthesesIndex = precedingText.lastIndexOf("$$");
-      var closingParenthesesIndex = followingText.indexOf("$$");
-
-      if (
-        openingParenthesesIndex !== -1 &&
-        closingParenthesesIndex !== -1 &&
-        openingParenthesesIndex < closingParenthesesIndex
-      ) {
-        console.log("in Math block");
-      } else {
-        console.log("not in math block");
+  const onKey = useCallback((e: KeyboardEvent) => {
+    if (e.ctrlKey || e.metaKey) {
+      switch (e.key) {
+        case "p": {
+          e.preventDefault();
+          togglePreview();
+        }
       }
     }
-  }, [val]);
+  }, []);
 
   return !prev ? (
-    <CodeMirror
-      value={val}
-      extensions={[
-        markdown({ base: markdownLanguage, codeLanguages: languages })
-      ]}
-      basicSetup={{
-        foldGutter: false,
-        autocompletion: true,
-        bracketMatching: true
-      }}
-      ref={ref}
-      onChange={onEdit}
-      theme={colorMode === "light" ? light : dark}
-      placeholder="# Hello world!"
-      style={{
-        width: "100%",
-        height: "89%",
-        overflow: "auto"
-      }}
-    />
+    <Flex w="100%" h="100%" justifyContent="center">
+      <CodeMirror
+        value={val}
+        extensions={extensions}
+        basicSetup={{
+          foldGutter: false,
+          autocompletion: true,
+          bracketMatching: true,
+          lineNumbers: false
+        }}
+        ref={ref}
+        onChange={onEdit}
+        /* @ts-ignore */
+        onKeyDown={onKey}
+        theme={colorMode === "light" ? light : dark}
+        placeholder="# Hello world!"
+        style={{
+          width: "70%",
+          height: "89%",
+          overflow: "auto"
+        }}
+      />
+      {math && math.split("").some(c => c !== " " && c !== "\n") && (
+        <MathPopover katex={math} />
+      )}
+    </Flex>
   ) : (
     <Preview />
   );
