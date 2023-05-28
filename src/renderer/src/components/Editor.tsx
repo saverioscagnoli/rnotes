@@ -8,7 +8,7 @@ import { EditorContext } from "@renderer/contexts";
 import { EditorView } from "@codemirror/view";
 import Preview from "./Preview";
 import MathPopover from "./MathPopover";
-import { useMathPopover } from "@renderer/hooks";
+import { useKeymaps, useKeydown, useMathPopover } from "@renderer/hooks";
 
 const extensions = [
   markdown({ base: markdownLanguage, codeLanguages: languages }),
@@ -21,18 +21,9 @@ function Editor() {
   const { val, setVal, prev, setPrev } = useContext(EditorContext)!;
   const math = useMathPopover(ref, val);
   const onEdit = useCallback((v: string) => setVal(v), []);
-  const togglePreview = () => setPrev(p => !p);
+  const onKey = useKeymaps(val, ref, setVal);
 
-  const onKey = useCallback((e: KeyboardEvent) => {
-    if (e.ctrlKey || e.metaKey) {
-      switch (e.key) {
-        case "p": {
-          e.preventDefault();
-          togglePreview();
-        }
-      }
-    }
-  }, []);
+  useKeydown(setPrev);
 
   return !prev ? (
     <Flex w="100%" h="100%" justifyContent="center">

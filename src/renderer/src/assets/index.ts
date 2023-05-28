@@ -1,3 +1,3 @@
-export { default as theme } from "./theme";
-export { default as editorTheme } from "./editorTheme";
+export { default as chakraTheme } from "./chakraTheme";
+export { default as mdTheme } from "./mdTheme";
 export * from "./codemirrorThemes";

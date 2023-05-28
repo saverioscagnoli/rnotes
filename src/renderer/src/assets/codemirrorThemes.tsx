@@ -1,13 +1,12 @@
 import createTheme from "@uiw/codemirror-themes";
 
-
 const light = createTheme({
   theme: "light",
   settings: {
     background: "transparent",
     foreground: "#000000",
     fontFamily: "Menlo, Consolas, monospace",
-    selection: "#d6d6d6",
+    selection: "transparent",
     lineHighlight: "transparent",
     caret: "#000000",
     gutterBackground: "transparent"
@@ -21,7 +20,7 @@ const dark = createTheme({
     background: "transparent",
     foreground: "#ffffff",
     fontFamily: "Menlo, Consolas, monospace",
-    selection: "#d6d6d6",
+    selection: "transparent",
     lineHighlight: "transparent",
     caret: "#ffffff",
     gutterBackground: "transparent",

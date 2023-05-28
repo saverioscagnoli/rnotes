@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Flex, Box } from "@chakra-ui/react";
-import { editorTheme } from "@renderer/assets";
+import { mdTheme } from "@renderer/assets";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import rehypeKatex from "rehype-katex";
@@ -24,7 +24,7 @@ function Preview() {
         overflow="auto"
       >
         <ReactMarkdown
-          components={ChakraUIRenderer(editorTheme)}
+          components={ChakraUIRenderer(mdTheme)}
           skipHtml
           remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
           rehypePlugins={[rehypeKatex, rehypeRaw]}

@@ -1,7 +1,7 @@
 import { ThemeComponentProps, extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
-const theme = extendTheme({
+const chakraTheme = extendTheme({
   styles: {
     global: (props: ThemeComponentProps) => ({
       body: {
@@ -11,4 +11,4 @@ const theme = extendTheme({
   }
 });
 
-export default theme;
+export default chakraTheme;
