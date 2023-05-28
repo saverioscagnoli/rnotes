@@ -20,8 +20,6 @@ const useKeymaps = (
     let nVal: string;
     let nPos: number;
 
-    console.log(start, end);
-
     if (txt) {
       nVal = `${prev}${char}${txt}${char}${next}`;
       nPos = caret + txt.length + char.length * 2;
