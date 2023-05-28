@@ -24,3 +24,4 @@ He was just $10$ (I think) years old!
 | Version | Date | Shortcut |
 | :---:        |     :---:     |        :---:  |
 | v0.0.1   | 22/05/2023     | [link](https://github.com/saverioscagnoli/rnotes/releases/tag/v0.0.1)    |
+| v0.0.2   | 28/05/2023     | [link](https://github.com/saverioscagnoli/rnotes/releases/tag/v0.0.2)    |
