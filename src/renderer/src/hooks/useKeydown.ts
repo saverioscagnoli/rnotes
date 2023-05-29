@@ -1,26 +1,16 @@
 import { ReactCodeMirrorRef } from "@uiw/react-codemirror";
-import {
-  useEffect,
-  Dispatch,
-  SetStateAction,
-  RefObject,
-  useState
-} from "react";
+import { useEffect, RefObject, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-type SetPrevFn = Dispatch<SetStateAction<boolean>>;
-
-const useKeydown = (
-  ref: RefObject<ReactCodeMirrorRef>,
-  prev: boolean,
-  setPrev: SetPrevFn
-) => {
+const useKeydown = (ref: RefObject<ReactCodeMirrorRef>, prev: boolean) => {
   const [caret, setCaret] = useState<number>(0);
-  const toggle = () => setPrev(p => !p);
+  const nav = useNavigate();
 
   let oldView = ref.current?.view;
 
   useEffect(() => {
     if (!prev) {
+      nav("/");
       setTimeout(() => {
         let newView = ref.current?.view;
         newView?.focus();
@@ -29,19 +19,10 @@ const useKeydown = (
         });
       }, 10);
     } else {
+      nav("/preview");
       setCaret(oldView?.state.selection.main.head!);
     }
   }, [prev]);
-
-  useEffect(() => {
-    addEventListener("keydown", e => {
-      if (!e.ctrlKey && !e.metaKey) return;
-      if (e.key === "p") {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  }, []);
 };
 
 export default useKeydown;
