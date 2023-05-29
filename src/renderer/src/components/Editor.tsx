@@ -23,7 +23,7 @@ function Editor() {
   const onEdit = useCallback((v: string) => setVal(v), []);
   const onKey = useKeymaps(val, ref, setVal);
 
-  useKeydown(setPrev);
+  useKeydown(ref, prev, setPrev);
 
   return !prev ? (
     <Flex w="100%" h="100%" justifyContent="center">

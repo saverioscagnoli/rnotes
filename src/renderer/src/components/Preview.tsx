@@ -11,13 +11,16 @@ import remarkBreaks from "remark-breaks";
 import remarkEmoji from "remark-emoji";
 import { EditorContext } from "@renderer/contexts";
 
+const remarkPlugins = [remarkGfm, remarkMath, remarkBreaks, remarkEmoji];
+const rehypePlugins = [rehypeKatex, rehypeRaw];
+
 function Preview() {
   const { val } = useContext(EditorContext)!;
   return (
     <Flex justifyContent="center">
       <Box
         id="md"
-        h="89%"
+        h="89vh"
         w="70%"
         fontWeight="semibold"
         wordBreak="break-all"
@@ -26,8 +29,8 @@ function Preview() {
         <ReactMarkdown
           components={ChakraUIRenderer(mdTheme)}
           skipHtml
-          remarkPlugins={[remarkGfm, remarkMath, remarkBreaks, remarkEmoji]}
-          rehypePlugins={[rehypeKatex, rehypeRaw]}
+          remarkPlugins={remarkPlugins}
+          rehypePlugins={rehypePlugins}
           children={val.length ? val : "Nothing to preview."}
         />
       </Box>
