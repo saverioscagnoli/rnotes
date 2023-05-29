@@ -1,5 +1,5 @@
-appId: r.notes
-productName: r.notes
+appId: rnotes
+productName: rnotes
 directories:
   buildResources: build
 files:
@@ -35,7 +35,7 @@ linux:
     - AppImage
     - snap
     - deb
-  maintainer: r.notes
+  maintainer: rnotes
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}

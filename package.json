@@ -1,6 +1,6 @@
 {
   "name": "rnotes",
-  "productName": "r.notes",
+  "productName": "rnotes",
   "version": "0.0.2",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
