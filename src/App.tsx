@@ -9,7 +9,6 @@ const App = () => {
     setDoc(nDoc);
   }, []);
 
-  console.log(mode);
   return (
     <>
       <Navbar

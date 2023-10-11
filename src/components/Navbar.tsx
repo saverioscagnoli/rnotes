@@ -1,4 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
+import { Button, Flex } from "@radix-ui/themes";
+import "../assets/buttons.css";
+import { Settings } from ".";
 
 interface NavbarProps {
   mode: boolean;
@@ -7,8 +10,6 @@ interface NavbarProps {
   setPreview: Dispatch<SetStateAction<boolean>>;
 }
 
-//button bg rgba(112, 72, 232, 0.75)
-
 const Navbar = ({ mode, setMode, preview, setPreview }: NavbarProps) => {
   /* const handleModeChange = () => setMode(m => !m);
   const handlePrevChange = () => setPreview(p => !p); */
@@ -16,28 +17,16 @@ const Navbar = ({ mode, setMode, preview, setPreview }: NavbarProps) => {
   console.log(mode);
 
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        gap: "0.5rem"
-      }}
-    >
-      <div style={{ width: "100%", display: "flex", gap: "0.5rem" }}>
-        <button className="button primary">asfsd</button>
-      </div>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          gap: "0.5rem",
-          justifyContent: "flex-end"
-        }}
-      >
-        <button>settings</button>
-      </div>
-    </div>
+    <Flex width="100%" p="2">
+      <Flex width="100%" gap="1">
+        <Button className="button" color="amber">
+          sasa
+        </Button>
+      </Flex>
+      <Flex width="100%" gap="1" justify="end">
+        <Settings />
+      </Flex>
+    </Flex>
   );
 };
 

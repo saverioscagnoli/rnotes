@@ -30,7 +30,7 @@ const syntax = HighlightStyle.define([
   {
     tag: tags.heading1,
     fontSize: "1.6em",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   {
     tag: tags.heading2,
@@ -41,6 +41,10 @@ const syntax = HighlightStyle.define([
     tag: tags.heading3,
     fontSize: "1.2em",
     fontWeight: "bold"
+  },
+  {
+    tag: tags.annotation,
+    color: "red !important"
   }
 ]);
 export const useEditor = <T extends Element>({
