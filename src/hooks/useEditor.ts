@@ -13,36 +13,18 @@ import { oneDark } from "@codemirror/theme-one-dark";
 import {
   bracketMatching,
   indentOnInput,
-  HighlightStyle,
   syntaxHighlighting
 } from "@codemirror/language";
 import { MutableRefObject, useRef, useState, useEffect } from "react";
 import { history, historyKeymap, defaultKeymap } from "@codemirror/commands";
 import { closeBrackets } from "@codemirror/autocomplete";
-import { tags } from "@lezer/highlight";
+import { syntax } from "../editor-theme";
 
 interface UseEditorProps {
   doc: string;
   onChange?: (state: EditorState) => void;
 }
 
-const syntax = HighlightStyle.define([
-  {
-    tag: tags.heading1,
-    fontSize: "1.6em",
-    fontWeight: "bold"
-  },
-  {
-    tag: tags.heading2,
-    fontSize: "1.4em",
-    fontWeight: "bold"
-  },
-  {
-    tag: tags.heading3,
-    fontSize: "1.2em",
-    fontWeight: "bold"
-  }
-]);
 export const useEditor = <T extends Element>({
   doc,
   onChange
