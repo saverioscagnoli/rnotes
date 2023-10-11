@@ -1,0 +1,61 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+.cm-editor,
+.cm-gutters,
+.cm-activeLineGutter {
+  background-color: #252525 !important;
+}
+
+.wrapper-single {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.preview.markdown-body.show {
+  padding-left: 10rem;
+  padding-right: 10rem;
+}
+
+.cm-editor {
+  padding: 10px;
+}
+
+.cm-gutter {
+  font-size: 14px;
+  font-weight: 500;
+  color: #c26c75;
+  padding-right: 0.3rem;
+}
+
+.cm-content {
+  font-size: 18px;
+  color: #fff;
+}
+
+.cm-content ::selection {
+  background-color: rgba(112, 72, 232, 0.6) !important;
+  color: #000;
+}
+
+.cm-activeLine {
+  background-color: rgba(112, 72, 232, 0.2) !important;
+}
+
+.cm-activeLineGutter {
+  color: #98c360 !important;
+  font-style: italic;
+}
+
+.preview.markdown-body {
+  padding: 10px;
+  color: #fff;
+  background: #252525;
+}
+
